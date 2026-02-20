@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Trash2, Edit2, Settings, Check, X, BookOpen, BarChart, Sparkles } from 'lucide-react';
+import { Plus, Trash2, Edit2, Settings, Check, X, BookOpen, BarChart, Sparkles, Download, Upload } from 'lucide-react';
 
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
@@ -155,6 +155,35 @@ export default function App() {
     return totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
   };
 
+  const handleExport = () => {
+    const dataStr = JSON.stringify({ columns, subjects });
+    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', 'prepmap-backup.json');
+    linkElement.click();
+  };
+
+  const handleImport = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const parsed = JSON.parse(e.target.result);
+        if (parsed.columns && parsed.subjects) {
+          setColumns(parsed.columns);
+          setSubjects(parsed.subjects);
+          if (parsed.subjects.length > 0) setActiveSubjectId(parsed.subjects[0].id);
+        }
+      } catch (err) {
+        console.error("Failed to parse file", err);
+      }
+    };
+    reader.readAsText(file);
+    event.target.value = null; // Reset input so same file can be imported again if needed
+  };
+
   if (!isLoaded) return null;
 
   const activeSubject = subjects.find(s => s.id === activeSubjectId);
@@ -214,11 +243,15 @@ export default function App() {
                   <Sparkles size={24} className="text-pink-400 animate-pulse" />
                 </h1>
                 <p className="text-gray-400 mt-1 font-medium text-sm md:text-base">Master your curriculum. Own your progress.</p>
+                <div className="mt-3 flex items-center gap-3 opacity-80 hover:opacity-100 transition-opacity">
+                  <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Powered by</span>
+                  <img src="https://i.ibb.co/rfs2sDK5/Whats-App-Image-2026-02-12-at-11-40-19-PM-removebg-preview.png" alt="Brand Logo" className="h-12 md:h-16 object-contain filter grayscale hover:grayscale-0 transition-all duration-300" />
+                </div>
               </div>
             </div>
             
-            <div className="flex flex-wrap items-center gap-4 w-full md:w-auto">
-              <div className="flex-1 md:flex-none flex items-center gap-4 px-5 py-3 glass-panel rounded-2xl border-white/5">
+            <div className="flex flex-wrap items-center gap-3 w-full xl:w-auto">
+              <div className="flex-1 md:flex-none flex items-center gap-4 px-5 py-3 glass-panel rounded-2xl border-white/5 mr-2">
                 <BarChart size={20} className="text-blue-400" />
                 <div className="flex flex-col w-32 md:w-40">
                   <div className="flex justify-between text-xs font-bold mb-1">
@@ -233,13 +266,29 @@ export default function App() {
                   </div>
                 </div>
               </div>
+
+              <label className="group flex items-center gap-2 px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl transition-all duration-300 active:scale-95 cursor-pointer" title="Import Data">
+                <Upload size={18} className="text-gray-400 group-hover:text-blue-400 transition-colors" />
+                <span className="font-semibold text-sm hidden md:inline">Import</span>
+                <input type="file" accept=".json" onChange={handleImport} className="hidden" />
+              </label>
+
+              <button 
+                onClick={handleExport}
+                className="group flex items-center gap-2 px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl transition-all duration-300 active:scale-95"
+                title="Export Data"
+              >
+                <Download size={18} className="text-gray-400 group-hover:text-green-400 transition-colors" />
+                <span className="font-semibold text-sm hidden md:inline">Export</span>
+              </button>
               
               <button 
                 onClick={() => setShowColManager(true)}
-                className="group flex items-center gap-2 px-5 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl transition-all duration-300 active:scale-95"
+                className="group flex items-center gap-2 px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl transition-all duration-300 active:scale-95"
+                title="Manage Columns"
               >
                 <Settings size={18} className="text-gray-400 group-hover:text-white transition-colors group-hover:rotate-90 duration-500" />
-                <span className="font-semibold text-sm">Columns</span>
+                <span className="font-semibold text-sm hidden md:inline">Columns</span>
               </button>
             </div>
           </header>
