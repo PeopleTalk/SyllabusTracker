@@ -1,16 +1,47 @@
-# React + Vite
+PrepMap 🗺️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+PrepMap is a high-performance, visually stunning syllabus tracking web application designed for students and learners to master their curriculum with a professional-grade progress matrix.
 
-Currently, two official plugins are available:
+Live Link: prepmap.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+✨ Features
 
-## React Compiler
+Dynamic Curriculum Mapping: Create and manage multiple subjects with individual chapter modules.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Progress Matrix: Customizable columns (Notes, PYQs, Revisions, etc.) to track every stage of your study workflow.
 
-## Expanding the ESLint configuration
+Glassmorphism UI: A premium aesthetic featuring animated background blobs, blur effects, and smooth transitions.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Data Portability:
+
+Export: Download your entire progress as a .json backup file.
+
+Import: Restore your data instantly across different devices.
+
+Real-time Analytics: Interactive progress bars calculating completion percentages.
+
+Local Persistence: Automatic saving to localStorage so your progress is never lost on refresh.
+
+🛠️ Tech Stack
+
+Frontend: React.js
+
+Styling: Tailwind CSS (v4 Engine)
+
+Icons: Lucide React
+
+Build Tool: Vite
+
+📂 Project Structure
+
+src/App.jsx: Main application logic and UI components.
+
+src/index.css: Tailwind CSS entry point.
+
+tailwind.config.js: Custom theme configurations.
+
+📄 License
+
+This project is licensed under the MIT License.
+
+Powered by 1EyeMedia
