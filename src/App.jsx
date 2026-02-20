@@ -39,7 +39,7 @@ export default function App() {
   const [confirmConfig, setConfirmConfig] = useState(null);
 
   useEffect(() => {
-    const saved = localStorage.getItem('syllabusTrackerPremium');
+    const saved = localStorage.getItem('prepMapData');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -56,7 +56,7 @@ export default function App() {
 
   useEffect(() => {
     if (isLoaded) {
-      localStorage.setItem('syllabusTrackerPremium', JSON.stringify({ columns, subjects }));
+      localStorage.setItem('prepMapData', JSON.stringify({ columns, subjects }));
     }
   }, [columns, subjects, isLoaded]);
 
@@ -210,7 +210,7 @@ export default function App() {
               </div>
               <div>
                 <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight flex items-center gap-3">
-                  <span className="text-gradient">Syllabus Nexus</span>
+                  <span className="text-gradient">PrepMap</span>
                   <Sparkles size={24} className="text-pink-400 animate-pulse" />
                 </h1>
                 <p className="text-gray-400 mt-1 font-medium text-sm md:text-base">Master your curriculum. Own your progress.</p>
@@ -290,7 +290,7 @@ export default function App() {
                   <Sparkles size={40} className="text-purple-400" />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-2">Blank Canvas</h3>
-                <p className="text-gray-400 mb-8 max-w-sm">No subjects exist in your nexus. Initialize a new subject to begin tracking.</p>
+                <p className="text-gray-400 mb-8 max-w-sm">No subjects exist in your PrepMap. Initialize a new subject to begin tracking.</p>
                 <button 
                   onClick={addSubject} 
                   className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white px-8 py-3 rounded-xl font-bold transition-all duration-300 active:scale-95 shadow-[0_0_20px_rgba(168,85,247,0.4)] flex items-center gap-2"
